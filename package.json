@@ -1,0 +1,26 @@
+{
+  "name": "api-nghiquan",
+  "version": "1.0.0",
+  "description": "\"# api\" \r \"# api-nghiquan\" \r \"# api-nghiquan\"",
+  "main": "nodemon src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NamThaPhu/api-nghiquan.git"
+  },
+  "author": "NamThaPhu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NamThaPhu/api-nghiquan/issues"
+  },
+  "homepage": "https://github.com/NamThaPhu/api-nghiquan#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "mongoose": "^6.4.1",
+    "nodemon": "^2.0.18"
+  }
+}
