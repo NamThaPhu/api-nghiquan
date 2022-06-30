@@ -2,8 +2,9 @@
   "name": "api-nghiquan",
   "version": "1.0.0",
   "description": "\"# api\" \r \"# api-nghiquan\" \r \"# api-nghiquan\"",
-  "main": "nodemon src/index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
