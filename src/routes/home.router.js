@@ -3,19 +3,9 @@ const router = express.Router()
 
 router.get('/', (req, res, next) => {
     const info = {
-        author: 'Thái Phương Nam',
-        nickName: 'NamThaPhu',
         apiName: 'api-nghiquan',
-        documents: [
-            {
-                name: product,
-                path: 'https://api-nghiquan.herokuapp.com/products',
-            },
-            {
-                name: category,
-                path: 'https://api-nghiquan.herokuapp.com/categories',
-            },
-        ]
+        author: 'Thái Phương Nam',
+        github: 'https://github.com/NamThaPhu',
     }
     res.json(info)
 })
