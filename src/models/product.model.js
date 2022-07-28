@@ -4,7 +4,7 @@ const productSchema = new Schema({
     name: { type: String, required: true },
     price: {
         capital: { type: Number, min: 0 },
-        default: { type: Number, required: true, min: 0 },
+        default: { type: Number, min: 0 },
         salesOff: { type: Number, min: 0 },
     },
     quantity: { type: Number, required: true, min: 0 },
