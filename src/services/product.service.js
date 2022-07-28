@@ -16,7 +16,7 @@ module.exports = {
         try {
             const product = await Product.create(data)
             await Category.updateMany({ _id: product.categories }, { $push: { products: product._id } })
-            await Type.updateOne({ _id: product.type }, { $push: { products: product._id } })
+            // await Type.updateOne({ _id: product.type }, { $push: { products: product._id } })
 
             return product
         }
@@ -32,7 +32,7 @@ module.exports = {
         try {
             const product = await Product.findById({ _id: id })
                 .populate({
-                    path: 'categories type',
+                    path: 'categories',
                     select: '-products -__v'
                 })
 
@@ -50,7 +50,7 @@ module.exports = {
         try {
             const products = await Product.find({})
                 .populate({
-                    path: 'categories type',
+                    path: 'categories',
                     select: '-products -__v'
                 })
 
