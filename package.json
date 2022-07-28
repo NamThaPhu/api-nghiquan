@@ -19,8 +19,10 @@
   "homepage": "https://github.com/NamThaPhu/api-nghiquan#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
+    "helmet": "^5.1.0",
     "mongoose": "^6.4.1",
     "nodemon": "^2.0.18"
   }

@@ -1,97 +1,86 @@
-const Category = require('../models/category.model')
-const Product = require('../models/product.model')
+// services
+const {
+    createCategory,
+    readCategory,
+    readCategories,
+    updateCategory,
+    deleteCategory
+} = require('../services/category.service')
 
-const difference = require('../utils/difference')
-
-class CategoryController {
-
+module.exports = {
     // [POST] /
-    async createCategory(req, res, next) {
+    createCategory: async (req, res, next) => {
         try {
-            let data = { ...req.body }
-            const category = await Category.create(data)
-            await Product.updateMany({ _id: category.products }, { $push: { categories: category._id } })
-            res.json(category)
+            res.json({
+                data: await createCategory({
+                    data: {
+                        ...req.body
+                    }
+                })
+            })
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
-    }
+    },
 
     // [GET] /:id
-    async readCategory(req, res, next) {
+    readCategory: async (req, res, next) => {
         try {
-            const category = await Category.findById({ _id: req.params.id })
-                .populate({
-                    path: 'products',
-                    select: '-__v -categories',
-                    populate: {
-                        path: 'type',
-                        select: '-__v -products'
-                    }
+            res.json({
+                data: await readCategory({
+                    id: req.params.id
                 })
-            res.json(category)
+            })
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
-    }
+    },
 
     // [GET] /
-    async readCategories(req, res, next) {
+    readCategories: async (req, res, next) => {
         try {
-            const categories = await Category.find({})
-                .populate({
-                    path: 'products',
-                    select: '-__v -categories',
-                    populate: {
-                        path: 'type',
-                        select: '-__v -products'
-                    }
+            res.json({
+                data: await readCategories({
+
                 })
-            res.json(categories)
+            })
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
-    }
+    },
 
     // [PUT] /:id
-    async updateCategory(req, res, next) {
+    updateCategory: async (req, res, next) => {
         try {
-            const _id = req.params.id;
-            const product = { ...req.body }
-            const newCategories = product.products || [];
+            res.json({
+                data: await updateCategory({
+                    id: req.params.id,
+                    data: {
+                        ...req.body
+                    }
+                })
 
-            const oldProduct = await Category.findById({ _id: _id })
-            const oldCategories = oldProduct.products
-
-            Object.assign(oldProduct, product);
-            const newProduct = await oldProduct.save();
-
-            const added = difference(newCategories, oldCategories);
-            const removed = difference(oldCategories, newCategories);
-
-            await Product.updateMany({ _id: added }, { $push: { categories: _id } })
-            await Product.updateMany({ _id: removed }, { $pull: { categories: _id } })
-            res.json(newProduct)
+            })
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
-    }
+    },
 
     // [DELETE] /:id
-    async deleteCategory(req, res, next) {
+    deleteCategory: async (req, res, next) => {
         try {
-            const category = await Category.deleteOne({ _id: req.params.id })
-            await Product.updateMany({ _id: category.products }, { $pull: { categories: category._id } })
-            res.json(category)
+            res.json(
+                await deleteCategory({
+                    id: req.params.id
+                })
+            )
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
-    }
+    },
 }
-
-module.exports = new CategoryController

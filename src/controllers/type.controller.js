@@ -48,8 +48,8 @@ class TypeController {
                 })
             res.json(types)
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
     }
 

@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+const { Schema, model } = require('mongoose')
 
 const productSchema = new Schema({
     name: { type: String, required: true },
@@ -14,8 +13,10 @@ const productSchema = new Schema({
     categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     type: { type: Schema.Types.ObjectId, ref: 'Type' },
 }, {
+    timestamps: true,
     versionKey: false,
-    // timestamps: false
 })
 
-module.exports = mongoose.model('Product', productSchema)
+productSchema.index({ name: 'text', });
+
+module.exports = model('Product', productSchema)

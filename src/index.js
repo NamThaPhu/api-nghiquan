@@ -1,27 +1,28 @@
 const express = require('express')
-const cors = require('cors');
-
-const route = require('./routes')
-const { connect: connectDatabase } = require('./config/database')
-
-// connect database
-connectDatabase()
-
 const app = express()
-const port = process.env.PORT || 3000
-
-app.use(
-    express.urlencoded({
-        extended: true,
-    }),
-)
 
 app.use(express.json())
 
+const cors = require('cors');
+const helmet = require('helmet')
+
+
+const route = require('./routes')
+const connectDb = require('./config/database')
+
+// connect database
+connectDb()
+
+app.use(helmet())
+const port = process.env.PORT || 3000
+
+// chấp nhận tất cả client request
 app.use(cors({
-    origin: '*'
+    origin: '*',
+    // origin: 'https://www.3000h.cf'
 }))
 
+// kết nối router cho app
 route(app)
 
 app.listen(port, () => {

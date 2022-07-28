@@ -6,8 +6,8 @@ const typeSchema = new Schema({
     // property: [{ type: String, required: true }],
     products: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
 }, {
+    timestamps: true,
     versionKey: false,
-    // timestamps: false
 })
 
 module.exports = mongoose.model('Type', typeSchema)

@@ -3,10 +3,11 @@ const router = express.Router()
 
 const controller = require('../controllers/product.controller')
 
-router.post('/', controller.createProduct)
+router.get('/search', controller.searchProduct)
 router.get('/:id', controller.readProduct)
-router.get('/', controller.readProducts)
 router.put('/:id', controller.updateProduct)
 router.delete('/:id', controller.deleteProduct)
+router.post('/', controller.createProduct)
+router.get('/', controller.readProducts)
 
 module.exports = router
