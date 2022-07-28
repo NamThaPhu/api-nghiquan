@@ -8,10 +8,12 @@ class TypeController {
         try {
             let data = { ...req.body }
             const type = await Type.create(data)
-            res.json(type)
+            res.json({
+                data: type
+            })
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
     }
 
@@ -27,10 +29,12 @@ class TypeController {
                         select: '-__v -products'
                     }
                 })
-            res.json(type)
+            res.json({
+                data: type
+            })
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
     }
 
@@ -46,7 +50,9 @@ class TypeController {
                         select: '-__v -products'
                     }
                 })
-            res.json(types)
+            res.json({
+                data: types
+            })
         }
         catch (e) {
             next(e)
@@ -57,10 +63,12 @@ class TypeController {
     async updateType(req, res, next) {
         try {
             const type = await Type.updateOne({ _id: req.params.id }, req.body)
-            res.json(type)
+            res.json({
+                data: type
+            })
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
     }
 
@@ -69,10 +77,12 @@ class TypeController {
         try {
             const type = await Type.deleteOne({ _id: req.params.id })
             // await Product.({ _id: type.products }, { type: null })
-            res.json(type)
+            res.json({
+                data: type
+            })
         }
-        catch (err) {
-            next(err)
+        catch (e) {
+            next(e)
         }
     }
 }

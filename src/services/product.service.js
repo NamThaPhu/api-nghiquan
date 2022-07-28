@@ -1,7 +1,7 @@
 // models
 const Product = require('../models/product.model')
 const Category = require('../models/category.model')
-// const Type = require('../models/type.model')
+const Type = require('../models/type.model')
 
 // services
 
@@ -16,7 +16,7 @@ module.exports = {
         try {
             const product = await Product.create(data)
             await Category.updateMany({ _id: product.categories }, { $push: { products: product._id } })
-            // await Type.updateOne({ _id: product.type }, { $push: { products: product._id } })
+            await Type.updateOne({ _id: product.type }, { $push: { products: product._id } })
 
             return product
         }
@@ -32,7 +32,7 @@ module.exports = {
         try {
             const product = await Product.findById({ _id: id })
                 .populate({
-                    path: 'categories',
+                    path: 'categories type',
                     select: '-products -__v'
                 })
 
@@ -50,7 +50,7 @@ module.exports = {
         try {
             const products = await Product.find({})
                 .populate({
-                    path: 'categories',
+                    path: 'categories type',
                     select: '-products -__v'
                 })
 
@@ -72,11 +72,11 @@ module.exports = {
             const product = data
 
             const newCategories = product.categories || []
-            // const newType = product.type
+            const newType = product.type
 
             const oldProduct = await Product.findById({ _id: _id })
             const oldCategories = oldProduct.categories
-            // const oldType = oldProduct.type
+            const oldType = oldProduct.type
 
             Object.assign(oldProduct, product)
             const newProduct = await oldProduct.save()
@@ -89,8 +89,8 @@ module.exports = {
             await Category.updateMany({ _id: removed }, { $pull: { products: _id } })
 
             // update Type
-            // await Type.updateOne({ _id: oldType }, { $pull: { products: _id } })
-            // await Type.updateOne({ _id: newType }, { $push: { products: _id } })
+            await Type.updateOne({ _id: oldType }, { $pull: { products: _id } })
+            await Type.updateOne({ _id: newType }, { $push: { products: _id } })
 
             return newProduct
         }
@@ -106,7 +106,7 @@ module.exports = {
         try {
             const product = await Product.deleteOne({ _id: id })
             await Category.updateMany({ _id: product.categories }, { $pull: { products: product._id } })
-            // await Type.updateOne({ _id: product.type }, { $pull: { products: product._id } })
+            await Type.updateOne({ _id: product.type }, { $pull: { products: product._id } })
             return product
         }
         catch (e) {

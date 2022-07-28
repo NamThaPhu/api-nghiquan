@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose;
+const { Schema, model } = require('mongoose')
 
 const typeSchema = new Schema({
     name: { type: String, required: true },
@@ -10,4 +9,4 @@ const typeSchema = new Schema({
     versionKey: false,
 })
 
-module.exports = mongoose.model('Type', typeSchema)
+module.exports = model('Type', typeSchema)
