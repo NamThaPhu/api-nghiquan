@@ -107,7 +107,7 @@ module.exports = {
             const product = await Product.deleteOne({ _id: id })
             await Category.updateMany({ _id: product.categories }, { $pull: { products: product._id } })
             await Type.updateOne({ _id: product.type }, { $pull: { products: product._id } })
-            
+
             return product
         }
         catch (e) {
@@ -124,7 +124,7 @@ module.exports = {
                 keyword: keyword || '',
             }
 
-            const pd = await Product.find({ $text: { $search: params.keyword } })
+            // const pd = await Product.find({ $text: { $search: params.keyword } })
 
             // // tìm kiếm theo danh mục
             // const category = await Category.findById({ _id: params.id })
@@ -137,10 +137,10 @@ module.exports = {
             //         }
             //     })
 
-            // // tìm kiếm theo từ khóa
-            // const resultKeyword = category.products.filter((item) => {
-            //     return item.name.toLowerCase().indexOf(params.keyword.toLowerCase()) !== -1
-            // })
+            // tìm kiếm theo từ khóa
+            const pd = (await Product.find({})).filter((item) => {
+                return item.name.toLowerCase().indexOf(params.keyword.toLowerCase()) !== -1
+            })
 
             // res.json({ result: resultKeyword.length, data: resultKeyword })
 
