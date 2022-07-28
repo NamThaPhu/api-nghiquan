@@ -107,6 +107,7 @@ module.exports = {
             const product = await Product.deleteOne({ _id: id })
             await Category.updateMany({ _id: product.categories }, { $pull: { products: product._id } })
             await Type.updateOne({ _id: product.type }, { $pull: { products: product._id } })
+            
             return product
         }
         catch (e) {

@@ -85,7 +85,7 @@ module.exports = {
         try {
             res.json({
                 data: await searchProduct({
-                    keyword: req.params.keyword
+                    keyword: req.query.keyword
                 })
             })
         }
