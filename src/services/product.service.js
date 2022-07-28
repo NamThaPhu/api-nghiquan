@@ -32,7 +32,7 @@ module.exports = {
         try {
             const product = await Product.findById({ _id: id })
                 .populate({
-                    path: 'categories types',
+                    path: 'categories type',
                     select: '-products -__v'
                 })
 
@@ -50,7 +50,7 @@ module.exports = {
         try {
             const products = await Product.find({})
                 .populate({
-                    path: 'categories types',
+                    path: 'categories type',
                     select: '-products -__v'
                 })
 
